@@ -33,11 +33,20 @@ export class PropertiesService {
   //   )
   // }
 
+  createProperty(property){
+    this.tabLogement.push(property);
+  }
+
   tabLogement = [
     {
       title:'Ma super maison', 
       category:'Maison',
-      solde:true
+      surfaces:'30',
+      rooms:'2',
+      description:'',
+      price:'12',
+      solde:true,
+      
     },
     {
       title:'Mon appartement',
@@ -52,4 +61,13 @@ export class PropertiesService {
 
   ];
 
+
+  deleteProperty(index){
+      this.tabLogement.splice(index, 1);
+  }
+
+  updateProperty(property, index){
+    this.tabLogement[index] = property;
+    this.emitsProperties();
+  }
 }

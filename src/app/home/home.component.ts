@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     
   }
 
-
   getSolde(index){
     if(this.properties[index].solde){
       return 'red';
