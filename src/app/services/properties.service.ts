@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Property } from '../interfaces/property';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class PropertiesService {
   constructor() { }
 
 
-  propertiesSubject = new Subject< any[]>();
+  propertiesSubject = new Subject< Property[]>();
 
   
   emitsProperties(){
@@ -33,11 +34,11 @@ export class PropertiesService {
   //   )
   // }
 
-  createProperty(property){
+  createProperty(property:Property){
     this.tabLogement.push(property);
   }
 
-  tabLogement = [
+  tabLogement:Property[] = [
     {
       title:'Ma super maison', 
       category:'Maison',
@@ -56,7 +57,7 @@ export class PropertiesService {
     {
       title: 'Ma super villa',
       category:'Maison',
-      solde:'false'
+      solde:false
     }
 
   ];
@@ -66,7 +67,7 @@ export class PropertiesService {
       this.tabLogement.splice(index, 1);
   }
 
-  updateProperty(property, index){
+  updateProperty(property:Property, index){
     this.tabLogement[index] = property;
     this.emitsProperties();
   }

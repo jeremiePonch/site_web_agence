@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
+import { Property } from 'src/app/interfaces/property';
 
 @Component({
   selector: 'app-admin-properties',
@@ -11,13 +12,11 @@ import * as $ from 'jquery';
 })
 export class AdminPropertiesComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private propertyService: PropertiesService) { 
-    
-  }
+  constructor(private formBuilder: FormBuilder, private propertyService: PropertiesService) {}
 
   propertiesFroms:FormGroup;
   propertiesSubscription:Subscription;
-  properties : any[] = [];
+  properties : Property[] = [];
   indexRemove;
   indexToUpdate;
   editMode=false;
@@ -25,7 +24,7 @@ export class AdminPropertiesComponent implements OnInit {
   ngOnInit(): void {
     this.initPropertiesFrom();  
     this.propertyService.propertiesSubject.subscribe(
-      (data)=>{
+      (data:Property[])=>{
         console.log(data);
         this.properties = data;
       }
@@ -47,7 +46,7 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   oneSubmitPropertiesForm(){
-    const newProperty = this.propertiesFroms.value;
+    const newProperty:Property = this.propertiesFroms.value;
     if(this.editMode){
       this.propertyService.updateProperty(newProperty, this.indexToUpdate);
     }else{
@@ -59,6 +58,7 @@ export class AdminPropertiesComponent implements OnInit {
     
   }
 
+  //fonction qui permet le recharge du formulaire 
   resetForm(){
     this.editMode = false;
     this.propertiesFroms.reset();
@@ -85,7 +85,7 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   
-  onEditProperty(property){
+  onEditProperty(property:Property){
     this.editMode = true;
     //ouvrir la modal
     $('#propertiesFromModal').modal('show');
